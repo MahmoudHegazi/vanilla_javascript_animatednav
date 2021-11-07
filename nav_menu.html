@@ -6,11 +6,16 @@ html, body {
   height: 100%;
 }
 .navmenu {
-  width: 0px;
   height: 100%;
-  background: red;
-  position: relative;
-  transition: width 1s ease .15s;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s ease .15s;
+  padding-top: 60px;
 }
 
 .active_navmenu {
@@ -21,30 +26,17 @@ html, body {
   width: 0px;
 }
 
-.nav_content {
-  opacity: 0;
-  width: 0px;
-  transition: opacity 1s ease .15s;
-}
-
-
-.active_content {
-  opacity: 1;
-  width: 300px;
-}
-
-.inactive_content {
-  opacity: 0;
-  width: 0px;
-}
 
 .nav_close {
+  
   position: absolute;
-  right: 0;
+  right: 2px;
+  top: 2px;
   width: 20px;
   height: 20px;
   border: 1px solid white;
   background: white;
+  color: black;
   cursor: pointer;
   text-align: center;
 }
@@ -74,27 +66,13 @@ function closeNavOnly(){
     if (navMenu.classList.contains("active_navmenu")){
       navMenu.classList.remove("active_navmenu");
     }
-    if (navContent.classList.contains("active_content")){
-      navContent.classList.remove("active_content");
-    }
     if (!navMenu.classList.contains("inactive_navmenu")){
       navMenu.classList.remove("inactive_navmenu");
-    }
-    if (!navContent.classList.contains("inactive_content")){
-      navContent.classList.remove("inactive_content");
-    }    
+    } 
     toggleIndex = 0;
 }
 
-function toggleNav(){
-
-    if (navContent.classList.contains("inactive_content")){
-      navContent.classList.remove("inactive_content");
-    }
-    if (navContent.classList.contains("active_content")){
-      navContent.classList.remove("active_content");
-    }
-    
+function toggleNav(){   
     if (navMenu.classList.contains("inactive_navmenu")){
       navMenu.classList.remove("inactive_navmenu");
     }
@@ -104,11 +82,9 @@ function toggleNav(){
 
     if (toggleIndex === 0){
       navMenu.classList.add("active_navmenu");
-      navContent.classList.add("active_content");
       toggleIndex = 1;
     } else {     
       navMenu.classList.add("inactive_navmenu");
-      navContent.classList.add("inactive_content");
       toggleIndex = 0;
     }
 }
