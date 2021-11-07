@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html, body {
+  height: 100%;
+}
+.navmenu {
+  width: 0px;
+  height: 100%;
+  background: red;
+  position: relative;
+  transition: width 1s ease .15s;
+}
+
+.active_navmenu {
+  width: 300px;
+}
+
+.inactive_navmenu {
+  width: 0px;
+}
+
+.nav_content {
+  opacity: 0;
+  width: 0px;
+  transition: opacity 1s ease .15s;
+}
+
+
+.active_content {
+  opacity: 1;
+  width: 300px;
+}
+
+.inactive_content {
+  opacity: 0;
+  width: 0px;
+}
+
+.nav_close {
+  position: absolute;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border: 1px solid white;
+  background: white;
+  cursor: pointer;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<button class="toggleit">Open</button>
+<div class="navmenu inactive_navmenu" >
+  <div class="nav_content inactive_content" >
+     <span id="close_btn" class="nav_close">X</span>
+  </div>
+</div>
+
+<script>
+const navBtn = document.querySelector(".toggleit");
+const navMenu = document.querySelector(".navmenu");
+const navContent = document.querySelector(".nav_content");
+const closeBtn = document.querySelector("#close_btn");
+
+let toggleIndex = 0;
+
+
+
+
+function closeNavOnly(){
+    if (navMenu.classList.contains("active_navmenu")){
+      navMenu.classList.remove("active_navmenu");
+    }
+    if (navContent.classList.contains("active_content")){
+      navContent.classList.remove("active_content");
+    }
+    if (!navMenu.classList.contains("inactive_navmenu")){
+      navMenu.classList.remove("inactive_navmenu");
+    }
+    if (!navContent.classList.contains("inactive_content")){
+      navContent.classList.remove("inactive_content");
+    }    
+    toggleIndex = 0;
+}
+
+function toggleNav(){
+
+    if (navContent.classList.contains("inactive_content")){
+      navContent.classList.remove("inactive_content");
+    }
+    if (navContent.classList.contains("active_content")){
+      navContent.classList.remove("active_content");
+    }
+    
+    if (navMenu.classList.contains("inactive_navmenu")){
+      navMenu.classList.remove("inactive_navmenu");
+    }
+    if (navMenu.classList.contains("active_navmenu")){
+      navMenu.classList.remove("active_navmenu");
+    }
+
+    if (toggleIndex === 0){
+      navMenu.classList.add("active_navmenu");
+      navContent.classList.add("active_content");
+      toggleIndex = 1;
+    } else {     
+      navMenu.classList.add("inactive_navmenu");
+      navContent.classList.add("inactive_content");
+      toggleIndex = 0;
+    }
+}
+
+navBtn.addEventListener("click", toggleNav);
+closeBtn.addEventListener("click", closeNavOnly);
+</script>
+</body>
+</html>
+
+
