@@ -1,21 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
 <style>
-html, body {
-  height: 100%;
+/* main css */
+
+* { padding: 0; margin: 0; }
+html, body, #fullheight {
+    min-height: 100% !important;
+    height: 100%;
+
+
 }
+#nav_links_container {
+height: 100% !important;
+overflow: auto;
+overflow-x: hidden;
+color: white;
+
+}
+.nav_main {
+ height: inherit;
+ overflow-x: hidden;
+}
+.nav_header {
+/*background: #ff0000;*/
+padding-left: 5px;
+padding-right: 5px;
+padding-bottom: 5px;
+margin-top: 0;
+text-align: right;
+height: 8%;
+color: white;
+}
+.nav_top{
+height: auto !important;
+padding-bottom: 20px;
+color: white;
+}
+.nav_bot{
+height: 60%;
+color: white;
+}
+
+.nav_top a {
+    display: block;
+    outline: none;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 0.45em 0.3em;
+    border-top: 1px solid #ff0000;
+    text-decoration: none;
+    color: #fff;
+}
+
+.nav_top a:last-child {
+  border-bottom: 1px solid #ff0000;
+}
+
+.nav_bot a {
+  font-size: 16px;
+  display: block;
+    outline: none;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 0.45em 0.3em;
+    text-decoration: none;
+    color: #fff;
+}
+    
+/* animation part */
 .navmenu {
+  font-family: 'Source Sans Pro', sans-serif;
   height: 100%;
   width: 0;
   position: fixed;
   z-index: 1;
   top: 0;
-  left: 0;
-  background-color: #111;
+  right: 0;
+  background-color: #373839;
+  color: #FFFFFF;
   overflow-x: hidden;
   transition: 0.5s ease .15s;
-  padding-top: 60px;
 }
 
 .active_navmenu {
@@ -28,7 +97,7 @@ html, body {
 
 
 .nav_close {
-  
+  display: inline-block;
   position: absolute;
   right: 2px;
   top: 2px;
@@ -45,22 +114,39 @@ html, body {
 <body>
 
 <button class="toggleit">Open</button>
-<div class="navmenu inactive_navmenu" >
-  <div class="nav_content inactive_content" >
-     <span id="close_btn" class="nav_close">X</span>
+<div class="navmenu inactive_navmenu">
+  <div class="nav_main">
+     <!-- navlinks -->
+       <div id="nav_links_container">
+         <span id="close_btn" class="nav_close">X</span>
+         <div class="nav_header">
+            <h2 style="width:90%;"><span>Navigation</span></h2>            
+         </div>
+         <div class="d_flex nav_top">
+           <a href="#" class="top_link">Products</a>
+           <a href="#" class="top_link">Shops</a>
+           <a href="#" class="top_link">Leinster</a>
+           <a href="#" class="top_link">Leinster</a>
+           <a href="#" class="top_link">Connaught</a>
+           <a href="#" class="top_link">Munster</a>
+           <a href="#" class="top_link">Ulster</a>
+         </div>
+         <div class="d_flex nav_bot">
+           <a href="#" class="bot_link">1</a>
+           <a href="#" class="bot_link">2</a>
+           <a href="#" class="bot_link">3</a>         
+         </div>
+       </div>
+     <!-- navlinks end -->
   </div>
 </div>
 
 <script>
 const navBtn = document.querySelector(".toggleit");
 const navMenu = document.querySelector(".navmenu");
-const navContent = document.querySelector(".nav_content");
 const closeBtn = document.querySelector("#close_btn");
 
 let toggleIndex = 0;
-
-
-
 
 function closeNavOnly(){
     if (navMenu.classList.contains("active_navmenu")){
