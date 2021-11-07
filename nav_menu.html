@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
@@ -11,38 +13,41 @@
 html, body, #fullheight {
     min-height: 100% !important;
     height: 100%;
-
-
+overflow-x: hidden;
 }
 #nav_links_container {
 height: 100% !important;
 overflow: auto;
 overflow-x: hidden;
 color: white;
+overflow: hidden;
 
 }
 .nav_main {
  height: inherit;
  overflow-x: hidden;
+ overflow: hidden;
 }
 .nav_header {
 /*background: #ff0000;*/
 padding-left: 5px;
-padding-right: 5px;
 padding-bottom: 5px;
 margin-top: 0;
 text-align: right;
 height: 8%;
 color: white;
+min-height: 40px;
 }
 .nav_top{
 height: auto !important;
 padding-bottom: 20px;
+    overflow: hidden;
 color: white;
 }
 .nav_bot{
 height: 60%;
 color: white;
+    overflow: hidden;
 }
 
 .nav_top a {
@@ -51,13 +56,15 @@ color: white;
     font-size: 16px;
     line-height: 18px;
     padding: 0.45em 0.3em;
-    border-top: 1px solid #ff0000;
+    border-top: 1px solid lightgray;
     text-decoration: none;
     color: #fff;
+    transition: 0.5s ease .15s;
 }
 
 .nav_top a:last-child {
-  border-bottom: 1px solid #ff0000;
+  border-bottom: 1px solid lightgray;
+      overflow: hidden;
 }
 
 .nav_bot a {
@@ -69,7 +76,7 @@ color: white;
     line-height: 18px;
     padding: 0.45em 0.3em;
     text-decoration: none;
-    color: #fff;
+    color: #FFFFFF;
 }
     
 /* animation part */
@@ -85,6 +92,7 @@ color: white;
   color: #FFFFFF;
   overflow-x: hidden;
   transition: 0.5s ease .15s;
+  overflow: hidden;
 }
 
 .active_navmenu {
@@ -97,17 +105,14 @@ color: white;
 
 
 .nav_close {
-  display: inline-block;
-  position: absolute;
-  right: 2px;
-  top: 2px;
-  width: 20px;
-  height: 20px;
-  border: 1px solid white;
-  background: white;
-  color: black;
-  cursor: pointer;
-  text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+    width: 10px;
+    height: 15px;
+    padding: 5px;
+    font-size: .825em;
 }
 </style>
 </head>
@@ -118,9 +123,9 @@ color: white;
   <div class="nav_main">
      <!-- navlinks -->
        <div id="nav_links_container">
-         <span id="close_btn" class="nav_close">X</span>
+         
          <div class="nav_header">
-            <h2 style="width:90%;"><span>Navigation</span></h2>            
+            <h2 style=""><span>Navigation</span><span id="close_btn" class="nav_close">&#9932;</span></h2>            
          </div>
          <div class="d_flex nav_top">
            <a href="#" class="top_link">Products</a>
@@ -132,9 +137,10 @@ color: white;
            <a href="#" class="top_link">Ulster</a>
          </div>
          <div class="d_flex nav_bot">
-           <a href="#" class="bot_link">1</a>
-           <a href="#" class="bot_link">2</a>
-           <a href="#" class="bot_link">3</a>         
+           <a href="#" class="bot_link">About GetLocal.ie</a>
+           <a href="#" class="bot_link">Add Your Business</a>
+           <a href="#" class="bot_link">Contact</a>
+           <a href="#" class="bot_link">Terms &#38; Condiions</a>         
          </div>
        </div>
      <!-- navlinks end -->
@@ -145,6 +151,8 @@ color: white;
 const navBtn = document.querySelector(".toggleit");
 const navMenu = document.querySelector(".navmenu");
 const closeBtn = document.querySelector("#close_btn");
+
+const allLinks = document.querySelectorAll(".nav_top a");
 
 let toggleIndex = 0;
 
@@ -168,15 +176,25 @@ function toggleNav(){
 
     if (toggleIndex === 0){
       navMenu.classList.add("active_navmenu");
+      allLinks.forEach( (alink)=>{
+        alink.style.width = "100%";
+      });
       toggleIndex = 1;
     } else {     
       navMenu.classList.add("inactive_navmenu");
+      allLinks.forEach( (alink)=>{
+        alink.style.width = "0px";
+      });
       toggleIndex = 0;
     }
 }
 
 navBtn.addEventListener("click", toggleNav);
 closeBtn.addEventListener("click", closeNavOnly);
+
+
+
+
 </script>
 </body>
 </html>
