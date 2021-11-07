@@ -27,13 +27,14 @@ overflow: hidden;
 }
 .nav_header {
 /*background: #ff0000;*/
+padding-top: 10px;
 padding-left: 5px;
 padding-bottom: 5px;
 margin-top: 0;
 text-align: right;
-height: 8%;
+height: 6%;
 color: white;
-min-height: 40px;
+min-height: 30px;
 }
 .nav_top{
 height: auto !important;
@@ -46,10 +47,21 @@ color: white;
     overflow: hidden;
 }
 
+.nav_header_h2{
+   font-size: 1.4em;
+   padding: 5px;
+ 
+ }
+
 .nav_main a:hover{
   background: black;
 }
 
+.nav_main a.empty {
+    font-size: 10px;
+    line-height: 13px;
+    padding: 0.65em 0.3em;
+}
 .nav_main a.empty:hover {
   background: transparent;
 }
@@ -60,22 +72,22 @@ color: white;
     font-size: 16px;
     line-height: 18px;
     padding: 0.65em 0.3em;
-
     text-decoration: none;
     color: #fff;
-    width: 0;
-    text-align: right;
+    
+    
 }
-
 
 
 .animated_link {
-   transition: width 1.5s ease;
+   transition: width 1s ease 0.15s;
    border-top: 1px solid lightgray;
+   text-align: right;
+   width: 0;
 }
 
-.hiiijn {
-  transition: width 1.5s ease;
+.link_active_animation {
+  transition: width 1s ease 0.15s;
   width: 100% !important;
 }
 
@@ -98,7 +110,7 @@ color: white;
 
 
 .nav_bot a:first-child {
-  padding-top: 20px;
+  padding-top: 25px;
 }
 
 
@@ -154,7 +166,7 @@ color: white;
        <div id="nav_links_container">
          
          <div class="nav_header">
-            <h2 style=""><span>Navigation</span><span id="close_btn" class="nav_close">&#9932;</span></h2>            
+            <h2  class="nav_header_h2" style="font-size: 1.4em;"><span>Navigation</span><span id="close_btn" class="nav_close">&#9932;</span></h2>            
          </div>
          <div class="d_flex nav_top">
            <a href="#" class="top_link animated_link"><span class="link_text">Products</span></a>
@@ -167,10 +179,10 @@ color: white;
            <a href="#" class="top_link animated_link"><span class="link_text">Ulster</a>
          </div>
          <div class="d_flex nav_bot">
-           <a href="#" class="bot_link">About GetLocal.ie</a>
-           <a href="#" class="bot_link">Add Your Business</a>
-           <a href="#" class="bot_link">Contact</a>
-           <a href="#" class="bot_link">Terms &#38; Condiions</a>         
+           <a href="#" class="bot_link animated_link"><span class="link_text">About GetLocal.ie</span></a>
+           <a href="#" class="bot_link animated_link"><span class="link_text">Add Your Business</span></a>
+           <a href="#" class="bot_link animated_link"><span class="link_text">Contact</span></a>
+           <a href="#" class="bot_link animated_link"><span class="link_text">Terms &#38; Condiions</span></a>         
          </div>
        </div>
      <!-- navlinks end -->
@@ -186,15 +198,44 @@ const allLinks = document.querySelectorAll(".animated_link");
 
 let toggleIndex = 0;
 
-function closeNavOnly(){
+
+function addAnimationLinkClass(){
+    allLinks.forEach( (alink)=>{
+      if (!alink.classList.contains("link_active_animation")){
+        alink.classList.add("link_active_animation");
+      }
+    });
+}
+function removeAnimationLinkClass(){
+    allLinks.forEach( (alink)=>{
+      if (alink.classList.contains("link_active_animation")){
+        alink.classList.remove("link_active_animation");
+      }
+    });
+}
+
+function activeAnimationAsideClass(){
+    if (navMenu.classList.contains("inactive_navmenu")){
+      navMenu.classList.remove("inactive_navmenu");
+    }
+    if (!navMenu.classList.contains("active_navmenu")){
+      navMenu.classList.add("active_navmenu");
+    }
+    toggleIndex = 1;
+}
+
+function deactiveAnimationAsideClass(){
     if (navMenu.classList.contains("active_navmenu")){
       navMenu.classList.remove("active_navmenu");
     }
     if (!navMenu.classList.contains("inactive_navmenu")){
-      navMenu.classList.remove("inactive_navmenu");
-    } 
+      navMenu.classList.add("inactive_navmenu");
+    }
     toggleIndex = 0;
+    
 }
+
+
 
 function toggleNav(){   
     if (navMenu.classList.contains("inactive_navmenu")){
@@ -205,25 +246,17 @@ function toggleNav(){
     }
 
     if (toggleIndex === 0){
-      navMenu.classList.add("active_navmenu");
-      
-      allLinks.forEach( (alink)=>{
-        alink.classList.add("hiiijn");
-      });
-      toggleIndex = 1;
+      activeAnimationAsideClass();
+      addAnimationLinkClass();
+
     } else {     
-      navMenu.classList.add("inactive_navmenu");
-      /*
-      allLinks.forEach( (alink)=>{
-        alink.style.width = "0px";
-      });
-      */
-      toggleIndex = 0;
+      deactiveAnimationAsideClass();
+      removeAnimationLinkClass();
     }
 }
 
 navBtn.addEventListener("click", toggleNav);
-closeBtn.addEventListener("click", closeNavOnly);
+closeBtn.addEventListener("click", deactiveAnimationAsideClass);
 
 
 
