@@ -3,9 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet">
 <style>
 /* main css */
 
@@ -40,7 +37,6 @@ min-height: 40px;
 }
 .nav_top{
 height: auto !important;
-padding-bottom: 20px;
     overflow: hidden;
 color: white;
 }
@@ -50,38 +46,69 @@ color: white;
     overflow: hidden;
 }
 
+.nav_main a:hover{
+  background: black;
+}
+
+.nav_main a.empty:hover {
+  background: transparent;
+}
+
 .nav_top a {
     display: block;
     outline: none;
     font-size: 16px;
     line-height: 18px;
-    padding: 0.45em 0.3em;
-    border-top: 1px solid lightgray;
+    padding: 0.65em 0.3em;
+
     text-decoration: none;
     color: #fff;
-    transition: 0.5s ease .15s;
+    width: 0;
+    text-align: right;
+}
+
+
+
+.animated_link {
+   transition: width 1.5s ease;
+   border-top: 1px solid lightgray;
+}
+
+.hiiijn {
+  transition: width 1.5s ease;
+  width: 100% !important;
 }
 
 .nav_top a:last-child {
   border-bottom: 1px solid lightgray;
-      overflow: hidden;
+  overflow: hidden;
 }
 
 .nav_bot a {
-  font-size: 16px;
-  display: block;
+    font-size: 16px;
+    display: block;
     outline: none;
     overflow: hidden;
     font-size: 16px;
     line-height: 18px;
-    padding: 0.45em 0.3em;
+    padding: 0.65em 0.3em;
     text-decoration: none;
     color: #FFFFFF;
+}
+
+
+.nav_bot a:first-child {
+  padding-top: 20px;
+}
+
+
+.link_text {
+ margin-right: 20px;
 }
     
 /* animation part */
 .navmenu {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Times New Roman", Times, serif;
   height: 100%;
   width: 0;
   position: fixed;
@@ -93,6 +120,8 @@ color: white;
   overflow-x: hidden;
   transition: 0.5s ease .15s;
   overflow: hidden;
+  font-weight: 600;
+
 }
 
 .active_navmenu {
@@ -128,13 +157,14 @@ color: white;
             <h2 style=""><span>Navigation</span><span id="close_btn" class="nav_close">&#9932;</span></h2>            
          </div>
          <div class="d_flex nav_top">
-           <a href="#" class="top_link">Products</a>
-           <a href="#" class="top_link">Shops</a>
-           <a href="#" class="top_link">Leinster</a>
-           <a href="#" class="top_link">Leinster</a>
-           <a href="#" class="top_link">Connaught</a>
-           <a href="#" class="top_link">Munster</a>
-           <a href="#" class="top_link">Ulster</a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Products</span></a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Shops</a>
+           <a class="empty top_link animated_link"><span class="link_text"></a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Leinster</a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Leinster</a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Connaught</a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Munster</a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Ulster</a>
          </div>
          <div class="d_flex nav_bot">
            <a href="#" class="bot_link">About GetLocal.ie</a>
@@ -152,7 +182,7 @@ const navBtn = document.querySelector(".toggleit");
 const navMenu = document.querySelector(".navmenu");
 const closeBtn = document.querySelector("#close_btn");
 
-const allLinks = document.querySelectorAll(".nav_top a");
+const allLinks = document.querySelectorAll(".animated_link");
 
 let toggleIndex = 0;
 
@@ -176,15 +206,18 @@ function toggleNav(){
 
     if (toggleIndex === 0){
       navMenu.classList.add("active_navmenu");
+      
       allLinks.forEach( (alink)=>{
-        alink.style.width = "100%";
+        alink.classList.add("hiiijn");
       });
       toggleIndex = 1;
     } else {     
       navMenu.classList.add("inactive_navmenu");
+      /*
       allLinks.forEach( (alink)=>{
         alink.style.width = "0px";
       });
+      */
       toggleIndex = 0;
     }
 }
