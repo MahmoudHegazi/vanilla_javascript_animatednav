@@ -212,7 +212,7 @@ a.link_active_animation {
        <div id="nav_links_main">
          
          <div class="nav_header">
-            <h2  class="nav_header_h2" style="font-size: 1.4em;"><span>Navigation</span><span id="close_btn" class="nav_close">&#9932;</span></h2>            
+            <h2  class="nav_header_h2" style="font-size: 1.4em;"><span id="navtitle">Navigation</span><span id="close_btn" class="nav_close">&#9932;</span></h2>            
          </div>
         <div id="navlinks_container"> 
          <div class="d_flex nav_top">
@@ -261,6 +261,8 @@ const navMenu = {
   target_url: null,
   is_back: false,
   mainNav: null,
+  mainTitle: "Navigation",
+  menu_title: "Navigation",
   products: [
    {
     text: 'Back',
@@ -479,12 +481,12 @@ const navMenu = {
       navMenu.backToMain();
       navMenu.mackFadeInAnimation();
     },
-  },  
+  },
   {text: 'Dublin', href:'#', level: 1, levels: 1, class: 'action_link',
    callback: ()=> {
      event.preventDefault();
      navMenu.generateSubNavLinks(navMenu.leinster[1]['supMenus']);
-     navMenu.updateMetaDataSub(1);
+     navMenu.updateMetaDataSub(1, navMenu.leinster[1].text);
      //navMenu.addAnimationLinkClass();
      navMenu.mackFadeInAnimation();
    },
@@ -494,7 +496,9 @@ const navMenu = {
         callback: ()=> {
           event.preventDefault();
           navMenu.generateSubNavLinks(navMenu.leinster);
-          navMenu.updateMetaDataSub(-1);
+          // add the New Sub Menu Main List for example after back from Dublin u will be
+          // in lienster array so provide it name here in call back for pusedo nested sup child
+          navMenu.updateMetaDataSub(-1, "Leinster");
           navMenu.addAnimationLinkClass();
           navMenu.mackFadeInAnimation();
           
@@ -750,6 +754,10 @@ const navMenu = {
     callback: ()=> {},
   }    
   ],
+  updateNavTitle: function(title){
+    const navHeaderText = document.querySelector("#navtitle");
+    navHeaderText.innerText = title;
+  },
   backToMain: function(){
     const navlinksContainer = document.querySelector("#navlinks_container");    
     navlinksContainer.innerHTML = "";
@@ -758,7 +766,9 @@ const navMenu = {
     navMenu.updateMetaDataSub(-1);
     navMenu.addActionClick();
     allLinks = document.querySelectorAll(".animated_link");
-    
+    // this the default title can be edited now from one place in the object
+    navMenu.menu_title = navMenu.mainTitle;
+    navMenu.updateNavTitle(navMenu.menu_title);
   },
   mackFadeInAnimation: function(){
       navMenu.removeAnimationLinkClass();
@@ -872,13 +882,21 @@ const navMenu = {
       
     }
   },
-  updateMetaDataSub: function(move){
+  updateMetaDataSub: function(move, update_title=""){
     const navlinksContainerSubEx = document.querySelector("#navlinks_container a.sub_link");
-    navMenu.updateMetaData(navlinksContainerSubEx, false, move);
+    navMenu.updateMetaData(navlinksContainerSubEx, false, move, update_title);
   },
-  updateMetaData: function(elm, main, move=0) {
+  updateMetaData: function(elm, main, move=0, update_title="") {
     if (elm){
       navMenu.current_menu = elm.getAttribute("data-current-menu").toLowerCase();
+      if (update_title != ""){
+        navMenu.menu_title = update_title;
+      } else {
+        navMenu.menu_title = elm.getAttribute("data-current-menu").toLowerCase();
+      }
+      
+      // update nav header text with current list
+      navMenu.updateNavTitle(navMenu.menu_title);
       if (move == 1){
         let num = Number(parseInt(elm.getAttribute("data-level")));
         navMenu.current_level = num + move;
@@ -1013,3 +1031,5 @@ navMenu.addActionClick();
 </script>
 </body>
 </html>
+
+
