@@ -12,18 +12,22 @@ html, body, #fullheight {
     height: 100%;
 overflow-x: hidden;
 }
-#nav_links_container {
+#nav_links_main {
 height: 100% !important;
 overflow: auto;
-overflow-x: hidden;
+
 color: white;
-overflow: hidden;
+overflow: auto;
 
 }
+
 .nav_main {
  height: inherit;
- overflow-x: hidden;
- overflow: hidden;
+overflow: auto;
+}
+.nav_main a {
+ overflow: auto;
+ text-shadow: 2px 2px 4px #111111;
 }
 .nav_header {
 /*background: #ff0000;*/
@@ -50,7 +54,7 @@ color: white;
 .nav_header_h2{
    font-size: 1.4em;
    padding: 5px;
- 
+   text-shadow: 2px 2px 4px #111111;
  }
 
 .nav_main a:hover{
@@ -69,12 +73,12 @@ color: white;
 .nav_top a {
     display: block;
     outline: none;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 18px;
     padding: 0.65em 0.3em;
     text-decoration: none;
     color: #fff;
-    
+    font-weight: 400;
     
 }
 
@@ -96,11 +100,15 @@ color: white;
   overflow: hidden;
 }
 
+.link_inactive_animation {
+  transition: width .9s ease 0.15s;
+}
+
 .nav_bot a {
     font-size: 16px;
     display: block;
     outline: none;
-    overflow: hidden;
+    overflow: auto;
     font-size: 16px;
     line-height: 18px;
     padding: 0.65em 0.3em;
@@ -110,7 +118,7 @@ color: white;
 
 
 .nav_bot a:first-child {
-  padding-top: 25px;
+  padding-top: 40px;
 }
 
 
@@ -131,7 +139,6 @@ color: white;
   color: #FFFFFF;
   overflow-x: hidden;
   transition: 0.5s ease .15s;
-  overflow: hidden;
   font-weight: 600;
 
 }
@@ -148,12 +155,32 @@ color: white;
 .nav_close {
     color: #FFFFFF;
     cursor: pointer;
-    overflow: hidden;
     text-align: center;
     width: 10px;
     height: 15px;
     padding: 5px;
     font-size: .825em;
+    text-shadow: 2px 2px 4px #cc1111;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  text-shadow: 2px 2px 4px #ffdd11;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+  text-shadow: 2px 2px 4px #373839;
 }
 </style>
 </head>
@@ -163,16 +190,16 @@ color: white;
 <div class="navmenu inactive_navmenu">
   <div class="nav_main">
      <!-- navlinks -->
-       <div id="nav_links_container">
+       <div id="nav_links_main">
          
          <div class="nav_header">
             <h2  class="nav_header_h2" style="font-size: 1.4em;"><span>Navigation</span><span id="close_btn" class="nav_close">&#9932;</span></h2>            
          </div>
+        <div id="navlinks_container"> 
          <div class="d_flex nav_top">
            <a href="#" class="top_link animated_link"><span class="link_text">Products</span></a>
            <a href="#" class="top_link animated_link"><span class="link_text">Shops</a>
            <a class="empty top_link animated_link"><span class="link_text"></a>
-           <a href="#" class="top_link animated_link"><span class="link_text">Leinster</a>
            <a href="#" class="top_link animated_link"><span class="link_text">Leinster</a>
            <a href="#" class="top_link animated_link"><span class="link_text">Connaught</a>
            <a href="#" class="top_link animated_link"><span class="link_text">Munster</a>
@@ -184,79 +211,91 @@ color: white;
            <a href="#" class="bot_link animated_link"><span class="link_text">Contact</span></a>
            <a href="#" class="bot_link animated_link"><span class="link_text">Terms &#38; Condiions</span></a>         
          </div>
-       </div>
+        </div>
+     </div>
      <!-- navlinks end -->
   </div>
 </div>
 
 <script>
 const navBtn = document.querySelector(".toggleit");
-const navMenu = document.querySelector(".navmenu");
+const navMenuDom = document.querySelector(".navmenu");
 const closeBtn = document.querySelector("#close_btn");
-
 const allLinks = document.querySelectorAll(".animated_link");
 
-let toggleIndex = 0;
+const navlinksContainer = document.querySelector("#navlinks_container");
 
 
-function addAnimationLinkClass(){
+
+
+const navMenu = {
+  toggleIndex: 0,
+  level: 0,
+  products: [],
+  shops: [],
+  leinster: [],
+  connaught: [],
+  munster: [],
+  ulster: [],
+  activeAnimationAsideClass: function(){
+    if (navMenuDom.classList.contains("inactive_navmenu")){
+      navMenuDom.classList.remove("inactive_navmenu");
+    }
+    if (!navMenuDom.classList.contains("active_navmenu")){
+      navMenuDom.classList.add("active_navmenu");
+    }
+    navMenu.toggleIndex = 1;
+  },
+  deactiveAnimationAsideClass: function(){
+    if (navMenuDom.classList.contains("active_navmenu")){
+      navMenuDom.classList.remove("active_navmenu");
+    }
+    if (!navMenuDom.classList.contains("inactive_navmenu")){
+      navMenuDom.classList.add("inactive_navmenu");
+    }
+    navMenu.toggleIndex = 0;
+  },
+  addAnimationLinkClass: function(){
+    allLinks.forEach( (alink)=>{
+      if (alink.classList.contains("link_inactive_animation")){
+        alink.classList.remove("link_inactive_animation");
+      }
+    });
     allLinks.forEach( (alink)=>{
       if (!alink.classList.contains("link_active_animation")){
         alink.classList.add("link_active_animation");
       }
     });
-}
-function removeAnimationLinkClass(){
+  },
+  removeAnimationLinkClass: function(){
     allLinks.forEach( (alink)=>{
       if (alink.classList.contains("link_active_animation")){
         alink.classList.remove("link_active_animation");
       }
     });
-}
-
-function activeAnimationAsideClass(){
-    if (navMenu.classList.contains("inactive_navmenu")){
-      navMenu.classList.remove("inactive_navmenu");
-    }
-    if (!navMenu.classList.contains("active_navmenu")){
-      navMenu.classList.add("active_navmenu");
-    }
-    toggleIndex = 1;
-}
-
-function deactiveAnimationAsideClass(){
-    if (navMenu.classList.contains("active_navmenu")){
-      navMenu.classList.remove("active_navmenu");
-    }
-    if (!navMenu.classList.contains("inactive_navmenu")){
-      navMenu.classList.add("inactive_navmenu");
-    }
-    toggleIndex = 0;
     
-}
+    allLinks.forEach( (alink)=>{
+      if (!alink.classList.contains("link_inactive_animation")){
+        alink.classList.add("link_inactive_animation");
+      }
+    });
+  },
+  toggleNav: function(){
 
-
-
-function toggleNav(){   
-    if (navMenu.classList.contains("inactive_navmenu")){
-      navMenu.classList.remove("inactive_navmenu");
-    }
-    if (navMenu.classList.contains("active_navmenu")){
-      navMenu.classList.remove("active_navmenu");
-    }
-
-    if (toggleIndex === 0){
-      activeAnimationAsideClass();
-      addAnimationLinkClass();
-
+    if (navMenu.toggleIndex === 0){
+      navMenu.activeAnimationAsideClass();
+      navMenu.addAnimationLinkClass();
     } else {     
-      deactiveAnimationAsideClass();
-      removeAnimationLinkClass();
+      navMenu.deactiveAnimationAsideClass();
+      navMenu.removeAnimationLinkClass();
     }
-}
+  },
+  
+};
 
-navBtn.addEventListener("click", toggleNav);
-closeBtn.addEventListener("click", deactiveAnimationAsideClass);
+
+navBtn.addEventListener("click", navMenu.toggleNav);
+closeBtn.addEventListener("click", navMenu.deactiveAnimationAsideClass);
 
 
 
