@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!DOCTYPE html>
+
 <style>
 /* main css */
 
@@ -245,8 +247,7 @@ a.link_active_animation {
 </style>
 </head>
 <body>
-
-<button class="toggleit">Open</button>
+<button class="toggleit" style="width:100px;font-size:24px"><i class="fa fa-bars"></i></button>
 <div class="navmenu inactive_navmenu">
   <div class="nav_main">
      <!-- navlinks -->
@@ -278,7 +279,6 @@ a.link_active_animation {
 </div>
 
 
-<h2>last</h2>
 <script>
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -715,10 +715,6 @@ const navMenu = {
       setTimeout(()=>{ navMenu.addAnimationLinkClass();}, 1);
     },
   },
-  {text: 'Back' , supMenus: [],
-    href:'#', level: 1, levels: 0,
-    callback: ()=> {},
-  },
   {text: 'Clare' , supMenus: [],
     href:'#', level: 1, levels: 0,
     callback: ()=> {},
@@ -736,7 +732,7 @@ const navMenu = {
     callback: ()=> {}
   },
   {text: 'Tipperary' , supMenus: [],
-    href:'#', level: 1, levels: 1,
+    href:'#', level: 1, levels: 0,
     callback: ()=> {},
   },
   {text: 'Waterford' , supMenus: [],
