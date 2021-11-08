@@ -244,6 +244,7 @@ const navlinksContainer = document.querySelector("#navlinks_container");
 const navMenu = {
   toggleIndex: 0,
   level: 0,
+  current_menu: null,
   products: [
    {
     text: 'Back',
@@ -449,7 +450,8 @@ const navMenu = {
     supMenus: [],
     callback: ()=> {},
   },
-  {text: 'Dublin', href:'#', level: 1, levels: 1, supMenus:[
+  {text: 'Dublin', href:'#', level: 1, levels: 1, callback: ()=> {},
+    supMenus:[
       {text: 'Back', supMenus: [],
         href:'#', level: 1, levels: -1,
         callback: ()=> {},
@@ -726,6 +728,16 @@ const navMenu = {
       }
     });
   },
+  
+  closeNav: function(){
+    allLinks.forEach( (alink)=>{
+        alink.classList.remove("link_active_animation");
+    });
+    if (navMenuDom.classList.contains("active_navmenu")){
+      navMenuDom.classList.remove("active_navmenu");
+    }
+    navMenu.toggleIndex = 0;
+  },
   toggleNav: function(){
 
     if (navMenu.toggleIndex === 0){
@@ -741,7 +753,7 @@ const navMenu = {
 
 
 navBtn.addEventListener("click", navMenu.toggleNav);
-closeBtn.addEventListener("click", navMenu.deactiveAnimationAsideClass);
+closeBtn.addEventListener("click", navMenu.closeNav);
 
 
 
