@@ -265,7 +265,6 @@ const navMenu = {
     callback: ()=> {
       event.preventDefault();
       navMenu.backToMain();
-      alert(navMenu.mainNav);
     },
    },
    {text: 'Health & Beauty' , supMenus: [],
@@ -476,6 +475,7 @@ const navMenu = {
    callback: ()=> {
      event.preventDefault();
      navMenu.generateSubNavLinks(navMenu.leinster[1]['supMenus']);
+     navMenu.updateMetaDataSub(1);
    },
     supMenus:[
       {text: 'Back', supMenus: [],
@@ -483,7 +483,7 @@ const navMenu = {
         callback: ()=> {
           event.preventDefault();
           navMenu.generateSubNavLinks(navMenu.leinster);
-          navMenu.updateMetaDataSub(1);
+          navMenu.updateMetaDataSub(-1);
        },
       },
       {text: 'Dublin 1', supMenus: [],
@@ -732,12 +732,14 @@ const navMenu = {
     navlinksContainer.innerHTML = "";
 
     navlinksContainer.innerHTML = navMenu.mainNav;
-    navMenu.updateMetaData(navlinksContainer.querySelector(".action_link"), false, 1);
+   // navMenu.updateMetaData(navlinksContainer.querySelector(".back_btn"), false, 1);
+    navMenu.updateMetaDataSub(-1);
+    navMenu.addActionClick();
   },
   setMainNavhtml: function(){
-    if (navMenu.mainNav){
+    if (!navMenu.mainNav){
       const currentMainStyle = document.querySelector("#navlinks_container");
-      navMenu.mainNav = currentMainStyle.innerHTML;
+      navMenu.mainNav = currentMainStyle.innerHTML;      
     }
   },
   activeAnimationAsideClass: function(){
@@ -844,7 +846,6 @@ const navMenu = {
     if (event.target.nodeName === "A"){
        event.preventDefault();
        navMenu.goToLevel(navMenu.updateMetaData(event.target, true, 1));
-
        return true;
     } else if (event.target.nodeName === "SPAN") {
        if (event.target.parentElement && event.target.parentElement.nodeName === "A"){ 
@@ -905,8 +906,7 @@ const navMenu = {
      navMenu.current_levels = data.levels;
 
      navMenu.generateSubNavLinks(navMenu.current_menu);
-      navMenu.updateMetaData(navlinksContainer.querySelector(".sub_link"), false, 1);
-      alert(navMenu.current_level);
+     navMenu.updateMetaData(navlinksContainer.querySelector(".sub_link"), false, 1);
      console.log("current", navMenu.current_level);
      
    }
@@ -927,5 +927,3 @@ navMenu.addActionClick();
 </script>
 </body>
 </html>
-
-
