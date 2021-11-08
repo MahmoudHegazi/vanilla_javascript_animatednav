@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* main css */
+
+* { padding: 0; margin: 0; }
+html, body, #fullheight {
+    min-height: 100% !important;
+    height: 100%;
+overflow-x: hidden;
+}
+#nav_links_main {
+height: 100% !important;
+overflow: hidden;
+color: white;
+ overflow-y: auto;
+}
+
+.nav_main {
+ height: inherit;
+ overflow-y: auto;
+}
+.nav_main a {
+overflow: hidden;
+ text-shadow: 2px 2px 4px #111111;
+ width: 100%;
+ height: 100%;
+}
+.nav_header {
+/*background: #ff0000;*/
+padding-top: 10px;
+padding-left: 5px;
+padding-bottom: 5px;
+margin-top: 0;
+text-align: right;
+height: 6%;
+color: white;
+min-height: 30px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.nav_top{
+height: auto !important;
+    overflow: hidden;
+color: white;
+}
+.nav_bot{
+height: 60%;
+color: white;
+    overflow: hidden;
+}
+
+.nav_header_h2{
+   font-size: 1.4em;
+   padding: 5px;
+   text-shadow: 2px 2px 4px #111111;
+ }
+
+.nav_main a:hover{
+  background: black;
+}
+
+.nav_main a.empty {
+    font-size: 10px;
+    line-height: 13px;
+    padding: 0.65em 0.3em;
+}
+.nav_main a.empty:hover {
+  background: transparent;
+}
+
+.nav_top a {
+    display: block;
+    outline: none;
+    font-size: 17px;
+    line-height: 18px;
+    padding: 0.65em 0.3em;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 400;
+    
+}
+
+
+.animated_link {
+   transition: width .5s ease 0.15s;
+   border-top: 1px solid lightgray;
+   text-align: right;
+   width: 0;
+}
+a.link_active_animation {
+  transition: width .5s ease 0.15s;
+  width: 100% !important;
+}
+
+.nav_top a:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.navmenu a.link_inactive_animation {
+  transition: width .5s ease 0.15s;
+  width: 0% !important;
+  opacity: .7;
+}
+
+.nav_bot a {
+    font-size: 16px;
+    display: block;
+    outline: none;
+
+    font-size: 16px;
+    line-height: 18px;
+    padding: 0.65em 0.3em;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+
+.nav_bot a:first-child {
+  padding-top: 40px;
+}
+
+
+.link_text {
+ margin-right: 20px;
+}
+    
+/* animation part */
+.navmenu {
+  font-family: "Times New Roman", Times, serif;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #373839;
+  color: #FFFFFF;
+  overflow-x: hidden;
+  transition: 0.5s ease .15s;
+  font-weight: 600;
+  
+
+}
+
+.navmenu_test {
+  transition: 0.5s ease .15s;
+}
+
+.active_navmenu {
+  width: 300px;
+}
+
+.inactive_navmenu {
+  width: 0px;
+}
+
+
+.nav_close {
+    color: #FFFFFF;
+    cursor: pointer;
+    text-align: center;
+    width: 10px;
+    height: 15px;
+    padding: 5px;
+    font-size: .825em;
+    text-shadow: 2px 2px 4px #cc1111;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  text-shadow: 2px 2px 4px #ffdd11;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+  text-shadow: 2px 2px 4px #373839;
+}
+
+@media only screen and (max-width: 150px) {
+  .nav_header_h2, .nav_main a{
+    font-size: 10vw !important;
+    
+  }
+  .nav_main{
+   overflow: auto;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<button class="toggleit">Open</button>
+<div class="navmenu inactive_navmenu">
+  <div class="nav_main">
+     <!-- navlinks -->
+       <div id="nav_links_main">
+         
+         <div class="nav_header">
+            <h2  class="nav_header_h2" style="font-size: 1.4em;"><span>Navigation</span><span id="close_btn" class="nav_close">&#9932;</span></h2>            
+         </div>
+        <div id="navlinks_container"> 
+         <div class="d_flex nav_top">
+           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Products"><span class="link_text">Products</span></a>
+           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Shops"><span class="link_text">Shops</a>
+           <a class="empty top_link animated_link link_inactive_animation"><span class="link_text"></a>
+           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="2" data-current-menu="Leinster"><span class="link_text">Leinster</a>
+           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Connaught"><span class="link_text">Connaught</a>
+           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Munster"><span class="link_text">Munster</a>
+           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Ulster"><span class="link_text">Ulster</a>
+         </div>
+         <div class="d_flex nav_bot">
+           <a href="#" class="bot_link animated_link link_inactive_animation"><span class="link_text">About GetLocal.ie</span></a>
+           <a href="#" class="bot_link animated_link link_inactive_animation"><span class="link_text">Add Your Business</span></a>
+           <a href="#" class="bot_link animated_link link_inactive_animation"><span class="link_text">Contact</span></a>
+           <a href="#" class="bot_link animated_link link_inactive_animation"><span class="link_text">Terms &#38; Condiions</span></a>         
+         </div>
+        </div>
+     </div>
+     <!-- navlinks end -->
+  </div>
+</div>
+
+
+<h2>last</h2>
+<script>
+
+window.addEventListener('DOMContentLoaded', (event) => {
+
+const navBtn = document.querySelector(".toggleit");
+const navMenuDom = document.querySelector(".navmenu");
+const closeBtn = document.querySelector("#close_btn");
+let allLinks = document.querySelectorAll(".animated_link");
+
+/* main container that changed*/
+
+
+
+
+
+const navMenu = {
+  toggleIndex: 0,
+  current_menu: null,
+  current_level: 0,
+  current_levels: 1,
+  target_url: null,
+  is_back: false,
+  mainNav: null,
+  products: [
+   {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    class: 'back_btn',
+    supMenus: [],
+    callback: ()=> {
+      navMenu.backToMain();
+      navMenu.mackFadeInAnimation();
+    },
+   },
+   {text: 'Health & Beauty' , supMenus: [],
+     href:'https://www.w3schools.com', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Home & Garden' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Animals & Pet Supplies' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Apparel &    Accessories' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Arts & Entertainment' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Food & Beverages' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Furniture' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Baby & Toddler' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Business & Industrial' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Cameras & Optics' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Electronics' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Hardware' , supMenus: [],
+     href:'#', level: 1, levels: 1,
+     callback: ()=> {},
+   },
+   {text: 'Luggage & Bags' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Media' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Office Supplies' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Toys & Games' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Religious & Ceremonial' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Software' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Sporting Goods' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Vehicles & Parts' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   }
+    ],
+  shops: [
+  {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    class: 'back_btn',
+    supMenus: [],
+    callback: ()=> {
+      navMenu.backToMain();
+      navMenu.removeAnimationLinkClass();
+      // in order to transation work we need wait 1 mili before add another transition
+      setTimeout(()=>{ navMenu.addAnimationLinkClass();}, 1);
+    },
+  },
+  {text: 'PRODUCTS' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Agriculture' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Animals & Pet Supplies' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Apparel & Accessories' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Arts & Entertainment' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Baby & Toddler' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Business & Industrial' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Business Services' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Cameras & Optics' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Education & Culture' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Electronics' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Food & Beverages' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Furniture' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Hardware' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Health & Beauty' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Home & Garden' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Media' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Office Supplies' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Public Organisations' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Religious & Ceremonial' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Sporting Goods' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Toys & Games' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Travel' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Vehicles & Parts' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  }
+  ],
+  leinster: [
+  {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    class: 'back_btn',
+    supMenus: [],
+    callback: ()=> {
+      navMenu.backToMain();
+      navMenu.mackFadeInAnimation();
+    },
+  },  
+  {text: 'Dublin', href:'#', level: 1, levels: 1, class: 'action_link',
+   callback: ()=> {
+     event.preventDefault();
+     navMenu.generateSubNavLinks(navMenu.leinster[1]['supMenus']);
+     navMenu.updateMetaDataSub(1);
+     //navMenu.addAnimationLinkClass();
+     navMenu.mackFadeInAnimation();
+   },
+    supMenus:[
+      {text: 'Back', supMenus: [],
+        href:'#', level: 1, levels: -1, class: 'back_btn',
+        callback: ()=> {
+          event.preventDefault();
+          navMenu.generateSubNavLinks(navMenu.leinster);
+          navMenu.updateMetaDataSub(-1);
+          navMenu.addAnimationLinkClass();
+          navMenu.mackFadeInAnimation();
+          
+       },
+      },
+      {text: 'Dublin 1', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 2', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 3', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 4', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 5', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 6', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 7', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 8', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 9', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 10', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 11', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 12', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 13', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 14', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 15', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 16', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 18', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 22', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      }
+    ]
+  },
+  {text: 'Carlow' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Kildare' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Kilkenny' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Laois' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Longford' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Louth' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Meath' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Offaly' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Westmeath' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Wexford' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Wicklow' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  }
+  ],
+  connaught: [
+  {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    class: 'back_btn',
+    supMenus: [],
+    callback: ()=> {
+      navMenu.backToMain();
+      navMenu.removeAnimationLinkClass();
+      // in order to transation work we need wait 1 mili before add another transition
+      setTimeout(()=>{ navMenu.addAnimationLinkClass();}, 1);
+    },
+  },
+  {text: 'Galway' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Leitrim' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Mayo' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Roscommon' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Sligo' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  }
+  ],
+  munster: [
+  {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    class: 'back_btn',
+    supMenus: [],
+    callback: ()=> {
+      navMenu.backToMain();
+      navMenu.removeAnimationLinkClass();
+      // in order to transation work we need wait 1 mili before add another transition
+      setTimeout(()=>{ navMenu.addAnimationLinkClass();}, 1);
+    },
+  },
+  {text: 'Back' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Clare' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Cork' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Kerry' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  { text: 'Limerick' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {}
+  },
+  {text: 'Tipperary' , supMenus: [],
+    href:'#', level: 1, levels: 1,
+    callback: ()=> {},
+  },
+  {text: 'Waterford' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  }
+ ],
+ ulster: [
+  {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    class: 'back_btn',
+    supMenus: [],
+    callback: (event)=> {
+      event.preventDefault();
+      navMenu.backToMain();
+      navMenu.removeAnimationLinkClass();
+      // in order to transation work we need wait 1 mili before add another transition
+      setTimeout(()=>{ navMenu.addAnimationLinkClass();}, 1);
+     
+      
+    },
+  },
+  {text: 'Cavan' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Antrim' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Down' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Donegal' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Monaghan' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Fermanagh' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Derry' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Tyrone', supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  }    
+  ],
+  backToMain: function(){
+    const navlinksContainer = document.querySelector("#navlinks_container");    
+    navlinksContainer.innerHTML = "";
+    navlinksContainer.innerHTML = navMenu.mainNav;
+   // navMenu.updateMetaData(navlinksContainer.querySelector(".back_btn"), false, 1);
+    navMenu.updateMetaDataSub(-1);
+    navMenu.addActionClick();
+    allLinks = document.querySelectorAll(".animated_link");
+    
+  },
+  mackFadeInAnimation: function(){
+      navMenu.removeAnimationLinkClass();
+      // in order to transation work we need wait 1 mili before add another transition
+      setTimeout(()=>{ navMenu.addAnimationLinkClass();}, 1);
+  },
+  setMainNavhtml: function(){
+    if (!navMenu.mainNav){
+      const currentMainStyle = document.querySelector("#navlinks_container");
+      navMenu.mainNav = currentMainStyle.innerHTML;      
+    }
+  },
+  activeAnimationAsideClass: function(){
+    const navMenuDom1 = document.querySelector(".navmenu");
+    if (navMenuDom1.classList.contains("inactive_navmenu")){
+      navMenuDom1.classList.remove("inactive_navmenu");
+    }
+    if (!navMenuDom1.classList.contains("active_navmenu")){
+      navMenuDom1.classList.add("active_navmenu");
+    }
+    navMenu.toggleIndex = 1;
+  },
+  deactiveAnimationAsideClass: function(){
+    const navMenuDom1 = document.querySelector(".navmenu");
+    if (navMenuDom1.classList.contains("active_navmenu")){
+      navMenuDom1.classList.remove("active_navmenu");
+    }
+    if (!navMenuDom1.classList.contains("inactive_navmenu")){
+      navMenuDom1.classList.add("inactive_navmenu");
+    }
+    navMenu.backToMain();
+    navMenu.toggleIndex = 0;
+  },
+  addAnimationLinkClass: function(){
+    allLinks = document.querySelectorAll(".animated_link");
+    allLinks.forEach( (alink)=>{
+      if (alink.classList.contains("link_inactive_animation")){
+        alink.classList.remove("link_inactive_animation");
+      }
+    });
+    allLinks.forEach( (alink)=>{
+      if (!alink.classList.contains("link_active_animation")){
+        alink.classList.add("link_active_animation");
+      }
+    });
+  },
+  removeInavtivelink: function(){
+      allLinks = document.querySelectorAll(".link_inactive_animation");
+    allLinks.forEach( (alink)=>{
+        alink.classList.remove("link_inactive_animation");
+
+    });
+  },
+  removeAnimationLinkClass: function(){
+    allLinks = document.querySelectorAll(".animated_link");
+    allLinks.forEach( (alink)=>{
+      if (alink.classList.contains("link_active_animation")){
+        alink.classList.remove("link_active_animation");
+      }
+    });
+    
+    allLinks.forEach( (alink)=>{
+      if (!alink.classList.contains("link_inactive_animation")){
+        alink.classList.add("link_inactive_animation");
+      }
+    });
+  },
+  
+  closeNav: function(){
+    
+
+    navMenu.toggleNav();
+
+  },
+  toggleNav: function(){
+
+    if (navMenu.toggleIndex === 0){
+
+      //navMenu.mainNav
+      navMenu.removeInavtivelink();
+      navMenu.activeAnimationAsideClass();
+      navMenu.addAnimationLinkClass();
+      
+       // active maybe menu manual
+       const navMenuDom1 = document.querySelector(".navmenu");
+      if (!navMenuDom1.classList.contains("active_navmenu")){
+         navMenuDom1.classList.add("active_navmenu");
+      } 
+      if (navMenuDom1.classList.contains("inactive_navmenu")){
+         navMenuDom1.classList.remove("inactive_navmenu");
+      }      
+      navMenu.toggleIndex = 1;
+      
+    } else {
+      
+      navMenu.activeAnimationAsideClass();
+      const navMenuDom1 = document.querySelector(".navmenu");
+     
+      // deative menu manual
+      if (!navMenuDom1.classList.contains("inactive_navmenu")){
+         navMenuDom1.classList.add("inactive_navmenu");
+      } 
+      if (navMenuDom1.classList.contains("active_navmenu")){
+         navMenuDom1.classList.remove("active_navmenu");
+         
+      }
+      navMenu.removeAnimationLinkClass();
+      navMenu.toggleIndex = 0;
+      
+      setTimeout(()=>{navMenu.backToMain();}, 500);
+      
+    }
+  },
+  updateMetaDataSub: function(move){
+    const navlinksContainerSubEx = document.querySelector("#navlinks_container a.sub_link");
+    navMenu.updateMetaData(navlinksContainerSubEx, false, move);
+  },
+  updateMetaData: function(elm, main, move=0) {
+    if (elm){
+      navMenu.current_menu = elm.getAttribute("data-current-menu").toLowerCase();
+      if (move == 1){
+        let num = Number(parseInt(elm.getAttribute("data-level")));
+        navMenu.current_level = num + move;
+      } else if (move < 0) {
+        let num = Number(parseInt(elm.getAttribute("data-level")));
+        navMenu.current_level = (num - move) <= 0 ? 0 : (num - move);
+      } else {
+        navMenu.current_level = elm.getAttribute("data-level");
+      }
+      navMenu.current_levels = elm.getAttribute("data-levels");
+      
+    
+    return {
+       current_menu: navMenu.current_menu,
+       level: navMenu.current_level,
+       levels: navMenu.current_levels,
+       main: main,
+       callback: null
+    }
+    }
+  }, 
+  addActionClick: function(){
+    currentActionsLinks = document.querySelectorAll(".animated_link");
+    currentActionsLinks.forEach( (alink)=>{
+        alink.addEventListener("click", navMenu.setCurrentMenu);
+    });
+  },
+  
+  setCurrentMenu: function(event){
+    if (event.target.nodeName === "A" && !event.target.classList.contains("direct_link")){
+       event.preventDefault();
+       navMenu.goToLevel(navMenu.updateMetaData(event.target, true, 1));
+       return true;
+    } else if (event.target.nodeName === "SPAN") {
+       if (event.target.parentElement && event.target.parentElement.nodeName === "A"  && !event.target.classList.contains("direct_link")){ 
+ navMenu.goToLevel(navMenu.updateMetaData(event.target.parentElement, true, 1));
+         
+         return true;
+       } else {
+         return false;
+       }
+    } else {
+      return false;
+    }
+    
+  },
+  generateSubNavLinks: function(linksData=[]){
+    const navlinksContainer = document.querySelector("#navlinks_container");    
+    navlinksContainer.innerHTML = "";
+    const fragment = document.createDocumentFragment();
+    const linksCont = document.createElement("div");
+    linksCont.classList.add("d_flex", "nav_top");
+    if (linksData.length > 0){
+      linksData.forEach( (linkObj, index)=>{
+        const newLink = document.createElement("a");
+        const newSpan = document.createElement("span");
+        newLink.classList.add("top_link", "animated_link", "sub_link", "link_inactive_animation");
+        newLink.setAttribute("data-level", linkObj.level);
+        newLink.setAttribute("data-levels", linkObj.levels);
+        newLink.setAttribute("data-current-menu", linkObj.text);
+
+        newSpan.classList.add("link_text");
+        newSpan.innerText = linkObj.text;
+        if (linkObj.text.toLowerCase() == "back" || linkObj.levels == -1){
+          newLink.addEventListener("click", linkObj.callback);
+          // back btn
+          newLink.classList.add("back_btn");
+        } else if (linkObj.levels == 1){
+          // open new sup child unlimated
+          newLink.addEventListener("click", linkObj.callback);
+          newLink.classList.add("action_link");
+        } else {
+          // click normal link add href to it (this href come from menus array make sure to add your own hrefs)          
+          newLink.setAttribute("href", linkObj.href);
+          newLink.classList.add("direct_link");
+          
+        }
+        newLink.appendChild(newSpan);
+        fragment.appendChild(newLink);
+      });
+      linksCont.appendChild(fragment);      
+      navlinksContainer.appendChild(linksCont);     
+      
+    }
+  },
+  goToLevel: function(data = {current_menu: null, level: 0, levels:1, main:true, callback:null}){
+     
+    const navlinksContainer = document.querySelector("#navlinks_container");
+   
+   if (data.main === true){
+     navMenu.current_menu = navMenu[data.current_menu];
+     navMenu.current_level = parseInt(data.level);
+     navMenu.current_levels = data.levels;
+     
+     
+     event.preventDefault();
+    
+     navMenu.updateMetaDataSub(1);
+     //navMenu.addAnimationLinkClass();
+     navMenu.mackFadeInAnimation();
+     setTimeout(()=>{navMenu.generateSubNavLinks(navMenu.current_menu); }, 300)
+     setTimeout(()=>{navMenu.addAnimationLinkClass(); }, 305);
+     
+     
+     
+     
+     
+     
+     //navMenu.generateSubNavLinks(navMenu.current_menu);
+     //navMenu.updateMetaData(navlinksContainer.querySelector(".sub_link"), false, 1);
+     //navMenu.addAnimationLinkClass();
+     //navMenu.removeAnimationLinkClass();
+     
+     console.log("current", navMenu.current_level);
+     
+   }
+    navMenu.addAnimationLinkClass();
+
+  }
+  
+};
+
+
+
+navBtn.addEventListener("click", navMenu.toggleNav);
+closeBtn.addEventListener("click", navMenu.closeNav);
+navMenu.setMainNavhtml();
+navMenu.addActionClick();
+
+
+});
+</script>
+</body>
+</html>
