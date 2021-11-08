@@ -26,7 +26,8 @@ color: white;
 .nav_main a {
 overflow: hidden;
  text-shadow: 2px 2px 4px #111111;
-
+ width: 100%;
+ height: 100%;
 }
 .nav_header {
 /*background: #ff0000;*/
@@ -210,13 +211,13 @@ color: white;
          </div>
         <div id="navlinks_container"> 
          <div class="d_flex nav_top">
-           <a href="#" class="top_link animated_link"><span class="link_text">Products</span></a>
-           <a href="#" class="top_link animated_link"><span class="link_text">Shops</a>
+           <a href="#" class="top_link animated_link action_link" data-level="0" data-levels="1" data-current-menu="Products"><span class="link_text">Products</span></a>
+           <a href="#" class="top_link animated_link action_link" data-level="0" data-levels="1" data-current-menu="Shops"><span class="link_text">Shops</a>
            <a class="empty top_link animated_link"><span class="link_text"></a>
-           <a href="#" class="top_link animated_link"><span class="link_text">Leinster</a>
-           <a href="#" class="top_link animated_link"><span class="link_text">Connaught</a>
-           <a href="#" class="top_link animated_link"><span class="link_text">Munster</a>
-           <a href="#" class="top_link animated_link"><span class="link_text">Ulster</a>
+           <a href="#" class="top_link animated_link action_link" data-level="0" data-levels="2" data-current-menu="Leinster"><span class="link_text">Leinster</a>
+           <a href="#" class="top_link animated_link action_link" data-level="0" data-levels="1" data-current-menu="Connaught"><span class="link_text">Connaught</a>
+           <a href="#" class="top_link animated_link action_link" data-level="0" data-levels="1" data-current-menu="Munster"><span class="link_text">Munster</a>
+           <a href="#" class="top_link animated_link action_link" data-level="0" data-levels="1" data-current-menu="Ulster"><span class="link_text">Ulster</a>
          </div>
          <div class="d_flex nav_bot">
            <a href="#" class="bot_link animated_link"><span class="link_text">About GetLocal.ie</span></a>
@@ -243,14 +244,18 @@ const navlinksContainer = document.querySelector("#navlinks_container");
 
 const navMenu = {
   toggleIndex: 0,
-  level: 0,
   current_menu: null,
+  current_level: 0,
+  current_levels: 1,
+  target_url: null,
+  is_back: false,
   products: [
    {
     text: 'Back',
     href:'#',
     level: 0,
     levels: -1,
+    class: 'back_btn',
     supMenus: [],
     callback: ()=> {},
    },
@@ -341,6 +346,7 @@ const navMenu = {
     href:'#',
     level: 0,
     levels: -1,
+    class: 'back_btn',
     supMenus: [],
     callback: ()=> {},
   },
@@ -447,13 +453,14 @@ const navMenu = {
     href:'#',
     level: 0,
     levels: -1,
+    class: 'back_btn',
     supMenus: [],
     callback: ()=> {},
   },
-  {text: 'Dublin', href:'#', level: 1, levels: 1, callback: ()=> {},
+  {text: 'Dublin', href:'#', level: 1, levels: 1, class: 'action_link', callback: ()=> {},
     supMenus:[
       {text: 'Back', supMenus: [],
-        href:'#', level: 1, levels: -1,
+        href:'#', level: 1, levels: -1, class: 'back_btn',
         callback: ()=> {},
       },
       {text: 'Dublin 1', supMenus: [],
@@ -581,6 +588,7 @@ const navMenu = {
     href:'#',
     level: 0,
     levels: -1,
+    class: 'back_btn',
     supMenus: [],
     callback: ()=> {},
   },
@@ -611,6 +619,7 @@ const navMenu = {
     href:'#',
     level: 0,
     levels: -1,
+    class: 'back_btn',
     supMenus: [],
     callback: ()=> {},
   },
@@ -649,6 +658,7 @@ const navMenu = {
     href:'#',
     level: 0,
     levels: -1,
+    class: 'back_btn',
     supMenus: [],
     callback: ()=> {},
   },
@@ -748,13 +758,77 @@ const navMenu = {
       navMenu.removeAnimationLinkClass();
     }
   },
+  updateMetaData: function(parent=false, main) {
+    if (parent===true){
+      navMenu.current_menu = event.target.parentElement.getAttribute("data-current-menu").toLowerCase();
+      navMenu.current_level = event.target.parentElement.getAttribute("data-level");
+      navMenu.current_levels = event.target.parentElement.getAttribute("data-levels");
+      if (event.target.parentElement.classList.contains("back_btn")){
+            navMenu.is_back = true;
+         } else {
+            navMenu.is_back = false;
+      }
+    } else {
+      navMenu.current_menu = event.target.getAttribute("data-current-menu").toLowerCase();
+      navMenu.current_level = event.target.getAttribute("data-level");
+      navMenu.current_levels = event.target.getAttribute("data-levels");
+      if (event.target.classList.contains("back_btn")){
+            navMenu.is_back = true;
+         } else {
+            navMenu.is_back = false;
+      }      
+    }
+    return {
+       current_menu: navMenu.current_menu,
+       current_level: navMenu.current_level,
+       current_levels: navMenu.current_levels,
+       is_back: navMenu.is_back,
+       main: main,
+       callback: null
+    }
+  }, 
+  addActionClick: function(){
+    currentActionsLinks = document.querySelectorAll(".action_link");
+    currentActionsLinks.forEach( (alink)=>{
+        alink.addEventListener("click", navMenu.setCurrentMenu);
+    });
+  },
+  
+  setCurrentMenu: function(event){
+    if (event.target.nodeName === "A"){
+       event.preventDefault();
+       navMenu.goToLevel(navMenu.updateMetaData(false, true));
+       return true;
+    } else if (event.target.nodeName === "SPAN") {
+       if (event.target.parentElement && event.target.parentElement.nodeName === "A"){ 
+       
+         navMenu.goToLevel(navMenu.updateMetaData(true, true));
+         
+         return true;
+       } else {
+         return false;
+       }
+    } else {
+      return false;
+    }
+    
+  },
+  
+  goToLevel: function(data = {current_menu: null, level: 0, level:1, back:false, main:true, callback:null}){
+  alert(navMenu.current_menu);
+   if (data.main === true){
+     navMenu.current_menu = navMenu[data.current_menu];
+     console.log(navMenu.current_menu);
+   }
+
+  }
   
 };
 
 
 navBtn.addEventListener("click", navMenu.toggleNav);
 closeBtn.addEventListener("click", navMenu.closeNav);
-
+navMenu.addActionClick();
 
 
 
