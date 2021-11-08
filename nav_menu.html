@@ -14,20 +14,19 @@ overflow-x: hidden;
 }
 #nav_links_main {
 height: 100% !important;
-overflow: auto;
-
+overflow: hidden;
 color: white;
-overflow: auto;
-
+ overflow-y: auto;
 }
 
 .nav_main {
  height: inherit;
-overflow: auto;
+ overflow-y: auto;
 }
 .nav_main a {
- overflow: auto;
+overflow: hidden;
  text-shadow: 2px 2px 4px #111111;
+
 }
 .nav_header {
 /*background: #ff0000;*/
@@ -39,6 +38,7 @@ text-align: right;
 height: 6%;
 color: white;
 min-height: 30px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .nav_top{
 height: auto !important;
@@ -96,7 +96,7 @@ color: white;
 }
 
 .nav_top a:last-child {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
 
@@ -108,7 +108,7 @@ color: white;
     font-size: 16px;
     display: block;
     outline: none;
-    overflow: auto;
+
     font-size: 16px;
     line-height: 18px;
     padding: 0.65em 0.3em;
@@ -140,6 +140,7 @@ color: white;
   overflow-x: hidden;
   transition: 0.5s ease .15s;
   font-weight: 600;
+  
 
 }
 
@@ -182,6 +183,18 @@ color: white;
   background: #555; 
   text-shadow: 2px 2px 4px #373839;
 }
+
+@media only screen and (max-width: 150px) {
+  .nav_header_h2, .nav_main a{
+    font-size: 10vw !important;
+    
+  }
+  .nav_main{
+   overflow: auto;
+  }
+
+}
+
 </style>
 </head>
 <body>
