@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+/* main css */
+
+* { padding: 0; margin: 0; }
+html, body, #fullheight {
+    min-height: 100% !important;
+    height: 100%;
+overflow-x: hidden;
+}
+#nav_links_main {
+height: 100% !important;
+overflow: hidden;
+color: white;
+ overflow-y: auto;
+}
+
+.nav_main {
+ height: inherit;
+ overflow-y: auto;
+}
+.nav_main a {
+overflow: hidden;
+ text-shadow: 2px 2px 4px #111111;
+
+}
+.nav_header {
+/*background: #ff0000;*/
+padding-top: 10px;
+padding-left: 5px;
+padding-bottom: 5px;
+margin-top: 0;
+text-align: right;
+height: 6%;
+color: white;
+min-height: 30px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.nav_top{
+height: auto !important;
+    overflow: hidden;
+color: white;
+}
+.nav_bot{
+height: 60%;
+color: white;
+    overflow: hidden;
+}
+
+.nav_header_h2{
+   font-size: 1.4em;
+   padding: 5px;
+   text-shadow: 2px 2px 4px #111111;
+ }
+
+.nav_main a:hover{
+  background: black;
+}
+
+.nav_main a.empty {
+    font-size: 10px;
+    line-height: 13px;
+    padding: 0.65em 0.3em;
+}
+.nav_main a.empty:hover {
+  background: transparent;
+}
+
+.nav_top a {
+    display: block;
+    outline: none;
+    font-size: 17px;
+    line-height: 18px;
+    padding: 0.65em 0.3em;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 400;
+    
+}
+
+
+.animated_link {
+   transition: width 1s ease 0.15s;
+   border-top: 1px solid lightgray;
+   text-align: right;
+   width: 0;
+}
+
+.link_active_animation {
+  transition: width 1s ease 0.15s;
+  width: 100% !important;
+}
+
+.nav_top a:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.link_inactive_animation {
+  transition: width .9s ease 0.15s;
+}
+
+.nav_bot a {
+    font-size: 16px;
+    display: block;
+    outline: none;
+
+    font-size: 16px;
+    line-height: 18px;
+    padding: 0.65em 0.3em;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+
+.nav_bot a:first-child {
+  padding-top: 40px;
+}
+
+
+.link_text {
+ margin-right: 20px;
+}
+    
+/* animation part */
+.navmenu {
+  font-family: "Times New Roman", Times, serif;
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #373839;
+  color: #FFFFFF;
+  overflow-x: hidden;
+  transition: 0.5s ease .15s;
+  font-weight: 600;
+  
+
+}
+
+.active_navmenu {
+  width: 300px;
+}
+
+.inactive_navmenu {
+  width: 0px;
+}
+
+
+.nav_close {
+    color: #FFFFFF;
+    cursor: pointer;
+    text-align: center;
+    width: 10px;
+    height: 15px;
+    padding: 5px;
+    font-size: .825em;
+    text-shadow: 2px 2px 4px #cc1111;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  text-shadow: 2px 2px 4px #ffdd11;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+  text-shadow: 2px 2px 4px #373839;
+}
+
+@media only screen and (max-width: 150px) {
+  .nav_header_h2, .nav_main a{
+    font-size: 10vw !important;
+    
+  }
+  .nav_main{
+   overflow: auto;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<button class="toggleit">Open</button>
+<div class="navmenu inactive_navmenu">
+  <div class="nav_main">
+     <!-- navlinks -->
+       <div id="nav_links_main">
+         
+         <div class="nav_header">
+            <h2  class="nav_header_h2" style="font-size: 1.4em;"><span>Navigation</span><span id="close_btn" class="nav_close">&#9932;</span></h2>            
+         </div>
+        <div id="navlinks_container"> 
+         <div class="d_flex nav_top">
+           <a href="#" class="top_link animated_link"><span class="link_text">Products</span></a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Shops</a>
+           <a class="empty top_link animated_link"><span class="link_text"></a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Leinster</a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Connaught</a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Munster</a>
+           <a href="#" class="top_link animated_link"><span class="link_text">Ulster</a>
+         </div>
+         <div class="d_flex nav_bot">
+           <a href="#" class="bot_link animated_link"><span class="link_text">About GetLocal.ie</span></a>
+           <a href="#" class="bot_link animated_link"><span class="link_text">Add Your Business</span></a>
+           <a href="#" class="bot_link animated_link"><span class="link_text">Contact</span></a>
+           <a href="#" class="bot_link animated_link"><span class="link_text">Terms &#38; Condiions</span></a>         
+         </div>
+        </div>
+     </div>
+     <!-- navlinks end -->
+  </div>
+</div>
+
+<script>
+const navBtn = document.querySelector(".toggleit");
+const navMenuDom = document.querySelector(".navmenu");
+const closeBtn = document.querySelector("#close_btn");
+const allLinks = document.querySelectorAll(".animated_link");
+
+const navlinksContainer = document.querySelector("#navlinks_container");
+
+
+
+
+const navMenu = {
+  toggleIndex: 0,
+  level: 0,
+  products: [
+   {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    supMenus: [],
+    callback: ()=> {},
+   },
+   {text: 'Health & Beauty' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Home & Garden' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Animals & Pet Supplies' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Apparel &    Accessories' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Arts & Entertainment' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Food & Beverages' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Furniture' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Baby & Toddler' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Business & Industrial' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Cameras & Optics' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Electronics' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Hardware' , supMenus: [],
+     href:'#', level: 1, levels: 1,
+     callback: ()=> {},
+   },
+   {text: 'Luggage & Bags' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Media' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Office Supplies' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Toys & Games' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Religious & Ceremonial' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Software' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Sporting Goods' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   },
+   {text: 'Vehicles & Parts' , supMenus: [],
+     href:'#', level: 1, levels: 0,
+     callback: ()=> {},
+   }
+    ],
+  shops: [
+  {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    supMenus: [],
+    callback: ()=> {},
+  },
+  {text: 'PRODUCTS' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Agriculture' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Animals & Pet Supplies' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Apparel & Accessories' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Arts & Entertainment' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Baby & Toddler' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Business & Industrial' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Business Services' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Cameras & Optics' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Education & Culture' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Electronics' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Food & Beverages' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Furniture' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Hardware' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Health & Beauty' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Home & Garden' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Media' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Office Supplies' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Public Organisations' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Religious & Ceremonial' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Sporting Goods' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Toys & Games' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Travel' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Vehicles & Parts' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  }
+  ],
+  leinster: [
+  {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    supMenus: [],
+    callback: ()=> {},
+  },
+  {text: 'Dublin', href:'#', level: 1, levels: 1, supMenus:[
+      {text: 'Back', supMenus: [],
+        href:'#', level: 1, levels: -1,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 1', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 2', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 3', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 4', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 5', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 6', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 7', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 8', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 9', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 10', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 11', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 12', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 13', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 14', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 15', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 16', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 18', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      },
+      {text: 'Dublin 22', supMenus: [],
+        href:'#', level: 2, levels: 0,
+        callback: ()=> {},
+      }
+    ]
+  },
+  {text: 'Carlow' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Kildare' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Kilkenny' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Laois' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Longford' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Louth' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Meath' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Offaly' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Westmeath' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Wexford' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Wicklow' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  }
+  ],
+  connaught: [
+  {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    supMenus: [],
+    callback: ()=> {},
+  },
+  {text: 'Galway' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Leitrim' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Mayo' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Roscommon' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Sligo' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  }
+  ],
+  munster: [
+  {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    supMenus: [],
+    callback: ()=> {},
+  },
+  {text: 'Back' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Clare' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Cork' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Kerry' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  { text: 'Limerick' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {}
+  },
+  {text: 'Tipperary' , supMenus: [],
+    href:'#', level: 1, levels: 1,
+    callback: ()=> {},
+  },
+  {text: 'Waterford' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  }
+ ],
+ ulster: [
+  {
+    text: 'Back',
+    href:'#',
+    level: 0,
+    levels: -1,
+    supMenus: [],
+    callback: ()=> {},
+  },
+  {text: 'Cavan' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Antrim' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Down' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Donegal' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Monaghan' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Fermanagh' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Derry' , supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  },
+  {text: 'Tyrone', supMenus: [],
+    href:'#', level: 1, levels: 0,
+    callback: ()=> {},
+  }    
+  ],
+  activeAnimationAsideClass: function(){
+    if (navMenuDom.classList.contains("inactive_navmenu")){
+      navMenuDom.classList.remove("inactive_navmenu");
+    }
+    if (!navMenuDom.classList.contains("active_navmenu")){
+      navMenuDom.classList.add("active_navmenu");
+    }
+    navMenu.toggleIndex = 1;
+  },
+  deactiveAnimationAsideClass: function(){
+    if (navMenuDom.classList.contains("active_navmenu")){
+      navMenuDom.classList.remove("active_navmenu");
+    }
+    if (!navMenuDom.classList.contains("inactive_navmenu")){
+      navMenuDom.classList.add("inactive_navmenu");
+    }
+    navMenu.toggleIndex = 0;
+  },
+  addAnimationLinkClass: function(){
+    allLinks.forEach( (alink)=>{
+      if (alink.classList.contains("link_inactive_animation")){
+        alink.classList.remove("link_inactive_animation");
+      }
+    });
+    allLinks.forEach( (alink)=>{
+      if (!alink.classList.contains("link_active_animation")){
+        alink.classList.add("link_active_animation");
+      }
+    });
+  },
+  removeAnimationLinkClass: function(){
+    allLinks.forEach( (alink)=>{
+      if (alink.classList.contains("link_active_animation")){
+        alink.classList.remove("link_active_animation");
+      }
+    });
+    
+    allLinks.forEach( (alink)=>{
+      if (!alink.classList.contains("link_inactive_animation")){
+        alink.classList.add("link_inactive_animation");
+      }
+    });
+  },
+  toggleNav: function(){
+
+    if (navMenu.toggleIndex === 0){
+      navMenu.activeAnimationAsideClass();
+      navMenu.addAnimationLinkClass();
+    } else {     
+      navMenu.deactiveAnimationAsideClass();
+      navMenu.removeAnimationLinkClass();
+    }
+  },
+  
+};
+
+
+navBtn.addEventListener("click", navMenu.toggleNav);
+closeBtn.addEventListener("click", navMenu.deactiveAnimationAsideClass);
+
+
+
+
+</script>
+</body>
+</html>
+
+
