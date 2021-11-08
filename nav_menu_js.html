@@ -237,7 +237,8 @@ const navMenuDom = document.querySelector(".navmenu");
 const closeBtn = document.querySelector("#close_btn");
 const allLinks = document.querySelectorAll(".animated_link");
 
-const navlinksContainer = document.querySelector("#navlinks_container");
+/* main container that changed*/
+
 
 
 
@@ -249,6 +250,7 @@ const navMenu = {
   current_levels: 1,
   target_url: null,
   is_back: false,
+  mainNav: null,
   products: [
    {
     text: 'Back',
@@ -695,6 +697,12 @@ const navMenu = {
     callback: ()=> {},
   }    
   ],
+  setMainNavhtml: function(){
+    if (navMenu.mainNav){
+      const currentMainStyle = document.querySelector("#navlinks_container");
+      navMenu.mainNav = currentMainStyle.innerHTML;
+    }
+  },
   activeAnimationAsideClass: function(){
     if (navMenuDom.classList.contains("inactive_navmenu")){
       navMenuDom.classList.remove("inactive_navmenu");
@@ -763,26 +771,15 @@ const navMenu = {
       navMenu.current_menu = event.target.parentElement.getAttribute("data-current-menu").toLowerCase();
       navMenu.current_level = event.target.parentElement.getAttribute("data-level");
       navMenu.current_levels = event.target.parentElement.getAttribute("data-levels");
-      if (event.target.parentElement.classList.contains("back_btn")){
-            navMenu.is_back = true;
-         } else {
-            navMenu.is_back = false;
-      }
     } else {
       navMenu.current_menu = event.target.getAttribute("data-current-menu").toLowerCase();
       navMenu.current_level = event.target.getAttribute("data-level");
-      navMenu.current_levels = event.target.getAttribute("data-levels");
-      if (event.target.classList.contains("back_btn")){
-            navMenu.is_back = true;
-         } else {
-            navMenu.is_back = false;
-      }      
+      navMenu.current_levels = event.target.getAttribute("data-levels");   
     }
     return {
        current_menu: navMenu.current_menu,
        current_level: navMenu.current_level,
        current_levels: navMenu.current_levels,
-       is_back: navMenu.is_back,
        main: main,
        callback: null
     }
@@ -813,12 +810,46 @@ const navMenu = {
     }
     
   },
-  
-  goToLevel: function(data = {current_menu: null, level: 0, level:1, back:false, main:true, callback:null}){
-  alert(navMenu.current_menu);
+  generateSubNavLinks: function(linksData=[]){
+    const navlinksContainer = document.querySelector("#navlinks_container");    
+    navlinksContainer.innerHTML = "";
+    const fragment = document.createDocumentFragment();
+    const linksCont = document.createElement("div");
+    linksCont.classList.add("d_flex", "nav_top");
+    if (linksData.length > 0){
+      linksData.forEach( (linkObj, index)=>{
+        const newLink = document.createElement("a");
+        const newSpan = document.createElement("span");
+        newLink.classList.add("top_link", "animated_link");
+        newLink.setAttribute("data-level", linkObj.level);
+        newLink.setAttribute("data-levels", linkObj.levels);
+        newLink.setAttribute("data-current-menu", linkObj.text);
+        newSpan.classList.add("link_text");
+        newSpan.innerText = linkObj.text;
+        if (linkObj.text.toLowerCase() == "back" || linkObj.levels == -1){
+          // back btn
+          newLink.classList.add("back_btn");
+        } else if (linkObj.levels == 1){
+          // open new sup child unlimated
+          newLink.classList.add("action_link");
+        } else {
+          // click normal link
+          newLink.classList.add("direct_link");
+          
+        }
+        newLink.appendChild(newSpan);
+        fragment.appendChild(newLink);
+      });
+      linksCont.appendChild(fragment);
+      navlinksContainer.appendChild(linksCont);
+    }
+  },
+  goToLevel: function(data = {current_menu: null, level: 0, level:1, main:true, callback:null}){
    if (data.main === true){
      navMenu.current_menu = navMenu[data.current_menu];
      console.log(navMenu.current_menu);
+     navMenu.generateSubNavLinks(navMenu.current_menu);
+     
    }
 
   }
@@ -826,8 +857,10 @@ const navMenu = {
 };
 
 
+
 navBtn.addEventListener("click", navMenu.toggleNav);
 closeBtn.addEventListener("click", navMenu.closeNav);
+navMenu.setMainNavhtml();
 navMenu.addActionClick();
 
 
