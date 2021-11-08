@@ -232,6 +232,9 @@ color: white;
 </div>
 
 <script>
+
+window.addEventListener('DOMContentLoaded', (event) => {
+
 const navBtn = document.querySelector(".toggleit");
 const navMenuDom = document.querySelector(".navmenu");
 const closeBtn = document.querySelector("#close_btn");
@@ -259,7 +262,11 @@ const navMenu = {
     levels: -1,
     class: 'back_btn',
     supMenus: [],
-    callback: ()=> {},
+    callback: ()=> {
+      event.preventDefault();
+      navMenu.backToMain();
+      alert(navMenu.mainNav);
+    },
    },
    {text: 'Health & Beauty' , supMenus: [],
      href:'#', level: 1, levels: 0,
@@ -350,7 +357,10 @@ const navMenu = {
     levels: -1,
     class: 'back_btn',
     supMenus: [],
-    callback: ()=> {},
+    callback: ()=> {
+      event.preventDefault();
+      navMenu.backToMain();
+    },
   },
   {text: 'PRODUCTS' , supMenus: [],
     href:'#', level: 1, levels: 0,
@@ -457,13 +467,24 @@ const navMenu = {
     levels: -1,
     class: 'back_btn',
     supMenus: [],
-    callback: ()=> {},
+    callback: ()=> {
+      event.preventDefault();
+      navMenu.backToMain();
+    },
   },
-  {text: 'Dublin', href:'#', level: 1, levels: 1, class: 'action_link', callback: ()=> {},
+  {text: 'Dublin', href:'#', level: 1, levels: 1, class: 'action_link',
+   callback: ()=> {
+     event.preventDefault();
+     navMenu.generateSubNavLinks(navMenu.leinster[1]['supMenus']);
+   },
     supMenus:[
       {text: 'Back', supMenus: [],
         href:'#', level: 1, levels: -1, class: 'back_btn',
-        callback: ()=> {},
+        callback: ()=> {
+          event.preventDefault();
+          navMenu.generateSubNavLinks(navMenu.leinster);
+          navMenu.updateMetaDataSub(1);
+       },
       },
       {text: 'Dublin 1', supMenus: [],
         href:'#', level: 2, levels: 0,
@@ -592,7 +613,10 @@ const navMenu = {
     levels: -1,
     class: 'back_btn',
     supMenus: [],
-    callback: ()=> {},
+    callback: ()=> {
+      event.preventDefault();
+      navMenu.backToMain();
+    },
   },
   {text: 'Galway' , supMenus: [],
     href:'#', level: 1, levels: 0,
@@ -623,7 +647,10 @@ const navMenu = {
     levels: -1,
     class: 'back_btn',
     supMenus: [],
-    callback: ()=> {},
+    callback: ()=> {
+      event.preventDefault();
+      navMenu.backToMain();
+    },
   },
   {text: 'Back' , supMenus: [],
     href:'#', level: 1, levels: 0,
@@ -662,7 +689,10 @@ const navMenu = {
     levels: -1,
     class: 'back_btn',
     supMenus: [],
-    callback: ()=> {},
+    callback: (event)=> {
+      event.preventDefault();
+      navMenu.backToMain();
+    },
   },
   {text: 'Cavan' , supMenus: [],
     href:'#', level: 1, levels: 0,
@@ -697,6 +727,13 @@ const navMenu = {
     callback: ()=> {},
   }    
   ],
+  backToMain: function(){
+    const navlinksContainer = document.querySelector("#navlinks_container");    
+    navlinksContainer.innerHTML = "";
+
+    navlinksContainer.innerHTML = navMenu.mainNav;
+    navMenu.updateMetaData(navlinksContainer.querySelector(".action_link"), false, 1);
+  },
   setMainNavhtml: function(){
     if (navMenu.mainNav){
       const currentMainStyle = document.querySelector("#navlinks_container");
@@ -719,6 +756,7 @@ const navMenu = {
     if (!navMenuDom.classList.contains("inactive_navmenu")){
       navMenuDom.classList.add("inactive_navmenu");
     }
+    navMenu.backToMain();
     navMenu.toggleIndex = 0;
   },
   addAnimationLinkClass: function(){
@@ -754,6 +792,7 @@ const navMenu = {
     if (navMenuDom.classList.contains("active_navmenu")){
       navMenuDom.classList.remove("active_navmenu");
     }
+    navMenu.backToMain();
     navMenu.toggleIndex = 0;
   },
   toggleNav: function(){
@@ -766,22 +805,32 @@ const navMenu = {
       navMenu.removeAnimationLinkClass();
     }
   },
-  updateMetaData: function(parent=false, main) {
-    if (parent===true){
-      navMenu.current_menu = event.target.parentElement.getAttribute("data-current-menu").toLowerCase();
-      navMenu.current_level = event.target.parentElement.getAttribute("data-level");
-      navMenu.current_levels = event.target.parentElement.getAttribute("data-levels");
-    } else {
-      navMenu.current_menu = event.target.getAttribute("data-current-menu").toLowerCase();
-      navMenu.current_level = event.target.getAttribute("data-level");
-      navMenu.current_levels = event.target.getAttribute("data-levels");   
-    }
+  updateMetaDataSub: function(move){
+    const navlinksContainerSubEx = document.querySelector("#navlinks_container a.sub_link");
+    navMenu.updateMetaData(navlinksContainerSubEx, false, move);
+  },
+  updateMetaData: function(elm, main, move=0) {
+    if (elm){
+      navMenu.current_menu = elm.getAttribute("data-current-menu").toLowerCase();
+      if (move == 1){
+        let num = Number(parseInt(elm.getAttribute("data-level")));
+        navMenu.current_level = num + move;
+      } else if (move < 0) {
+        let num = Number(parseInt(elm.getAttribute("data-level")));
+        navMenu.current_level = (num - move) <= 0 ? 0 : (num - move);
+      } else {
+        navMenu.current_level = elm.getAttribute("data-level");
+      }
+      navMenu.current_levels = elm.getAttribute("data-levels");
+      
+    
     return {
        current_menu: navMenu.current_menu,
-       current_level: navMenu.current_level,
-       current_levels: navMenu.current_levels,
+       level: navMenu.current_level,
+       levels: navMenu.current_levels,
        main: main,
        callback: null
+    }
     }
   }, 
   addActionClick: function(){
@@ -794,12 +843,12 @@ const navMenu = {
   setCurrentMenu: function(event){
     if (event.target.nodeName === "A"){
        event.preventDefault();
-       navMenu.goToLevel(navMenu.updateMetaData(false, true));
+       navMenu.goToLevel(navMenu.updateMetaData(event.target, true, 1));
+
        return true;
     } else if (event.target.nodeName === "SPAN") {
        if (event.target.parentElement && event.target.parentElement.nodeName === "A"){ 
-       
-         navMenu.goToLevel(navMenu.updateMetaData(true, true));
+ navMenu.goToLevel(navMenu.updateMetaData(event.target.parentElement, true, 1));
          
          return true;
        } else {
@@ -820,17 +869,20 @@ const navMenu = {
       linksData.forEach( (linkObj, index)=>{
         const newLink = document.createElement("a");
         const newSpan = document.createElement("span");
-        newLink.classList.add("top_link", "animated_link");
+        newLink.classList.add("top_link", "animated_link", "sub_link");
         newLink.setAttribute("data-level", linkObj.level);
         newLink.setAttribute("data-levels", linkObj.levels);
         newLink.setAttribute("data-current-menu", linkObj.text);
+
         newSpan.classList.add("link_text");
         newSpan.innerText = linkObj.text;
         if (linkObj.text.toLowerCase() == "back" || linkObj.levels == -1){
+          newLink.addEventListener("click", linkObj.callback);
           // back btn
           newLink.classList.add("back_btn");
         } else if (linkObj.levels == 1){
           // open new sup child unlimated
+          newLink.addEventListener("click", linkObj.callback);
           newLink.classList.add("action_link");
         } else {
           // click normal link
@@ -840,15 +892,22 @@ const navMenu = {
         newLink.appendChild(newSpan);
         fragment.appendChild(newLink);
       });
-      linksCont.appendChild(fragment);
-      navlinksContainer.appendChild(linksCont);
+      linksCont.appendChild(fragment);      
+      navlinksContainer.appendChild(linksCont);     
+      
     }
   },
-  goToLevel: function(data = {current_menu: null, level: 0, level:1, main:true, callback:null}){
+  goToLevel: function(data = {current_menu: null, level: 0, levels:1, main:true, callback:null}){
+    const navlinksContainer = document.querySelector("#navlinks_container");    
    if (data.main === true){
      navMenu.current_menu = navMenu[data.current_menu];
-     console.log(navMenu.current_menu);
+     navMenu.current_level = parseInt(data.level);
+     navMenu.current_levels = data.levels;
+
      navMenu.generateSubNavLinks(navMenu.current_menu);
+      navMenu.updateMetaData(navlinksContainer.querySelector(".sub_link"), false, 1);
+      alert(navMenu.current_level);
+     console.log("current", navMenu.current_level);
      
    }
 
@@ -864,7 +923,7 @@ navMenu.setMainNavhtml();
 navMenu.addActionClick();
 
 
-
+});
 </script>
 </body>
 </html>
