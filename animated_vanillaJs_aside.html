@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /* main css */
 
@@ -190,16 +191,56 @@ a.link_active_animation {
   text-shadow: 2px 2px 4px #373839;
 }
 
-@media only screen and (max-width: 150px) {
+.back_btn{
+ box-shadow: 0 4px 8px 0 rgba(0, 122, 120, 0.2), 0 6px 20px 0 rgba(150, 150, 150, 0.19);
+}
+.float_left {
+  float: left;
+  padding-left: 4px;
+}
+.pointer {
+  cursor: pointer;
+}
+@media only screen and (max-width: 220px) {
   .nav_header_h2, .nav_main a{
-    font-size: 10vw !important;
+    font-size: 11vw !important;
     
   }
   .nav_main{
    overflow: auto;
   }
+  .navmenu #navlinks_container {
+    text-align: center !important;
+  }
+  .navmenu a span.link_text{
+   
+    font-size: 1em !important;
+    text-align: center;
+    padding-left: auto;
+    display: inline-block;
+    width: 40%;
+    max-width: 60vw;
+    text-align: center;
+    padding-right: 1vw;
+    word-wrap: break-word;
+   
+  }
+
+  .float_left {
+    float: none;
+    display: inline-block;
+    text-align: right;
+    width: 10%;
+    
+  }
+  
+  
+
 
 }
+
+
+
 
 </style>
 </head>
@@ -216,13 +257,13 @@ a.link_active_animation {
          </div>
         <div id="navlinks_container"> 
          <div class="d_flex nav_top">
-           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Products"><span class="link_text">Products</span></a>
-           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Shops"><span class="link_text">Shops</a>
+           <a href="#" class="pointer top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Products"><i class="float_left fa fa-chevron-right"></i><span class="link_text">Products</span></a>
+           <a href="#" class="pointer top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Shops"><i class="float_left fa fa-chevron-right"></i><span class="link_text">Shops</a>
            <a class="empty top_link animated_link link_inactive_animation"><span class="link_text"></a>
-           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="2" data-current-menu="Leinster"><span class="link_text">Leinster</a>
-           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Connaught"><span class="link_text">Connaught</a>
-           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Munster"><span class="link_text">Munster</a>
-           <a href="#" class="top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Ulster"><span class="link_text">Ulster</a>
+           <a href="#" class="pointer top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="2" data-current-menu="Leinster"><i class="float_left fa fa-chevron-right"></i><span class="link_text">Leinster</a>
+           <a href="#" class="pointer top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Connaught"><i class="float_left fa fa-chevron-right"></i><span class="link_text">Connaught</a>
+           <a href="#" class="pointer top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Munster"><i class="float_left fa fa-chevron-right"></i><span class="link_text">Munster</a>
+           <a href="#" class="pointer top_link animated_link action_link link_inactive_animation" data-level="0" data-levels="1" data-current-menu="Ulster"><i class="float_left fa fa-chevron-right"></i><span class="link_text">Ulster</a>
          </div>
          <div class="d_flex nav_bot">
            <a href="#" class="bot_link animated_link link_inactive_animation"><span class="link_text">About GetLocal.ie</span></a>
@@ -321,7 +362,7 @@ const navMenu = {
      callback: ()=> {},
    },
    {text: 'Hardware' , supMenus: [],
-     href:'#', level: 1, levels: 1,
+     href:'#', level: 1, levels: 0,
      callback: ()=> {},
    },
    {text: 'Luggage & Bags' , supMenus: [],
@@ -767,7 +808,7 @@ const navMenu = {
     navMenu.addActionClick();
     allLinks = document.querySelectorAll(".animated_link");
     // this the default title can be edited now from one place in the object
-    navMenu.menu_title = navMenu.mainTitle;
+    navMenu.menu_title = navMenu.mainTitle.toUpperCase();
     navMenu.updateNavTitle(navMenu.menu_title);
   },
   mackFadeInAnimation: function(){
@@ -851,7 +892,8 @@ const navMenu = {
       navMenu.removeInavtivelink();
       navMenu.activeAnimationAsideClass();
       navMenu.addAnimationLinkClass();
-      
+      navMenu.menu_title = navMenu.mainTitle.toUpperCase();
+      navMenu.updateNavTitle(navMenu.menu_title);
        // active maybe menu manual
        const navMenuDom1 = document.querySelector(".navmenu");
       if (!navMenuDom1.classList.contains("active_navmenu")){
@@ -890,12 +932,12 @@ const navMenu = {
     if (elm){
       navMenu.current_menu = elm.getAttribute("data-current-menu").toLowerCase();
       if (update_title != ""){
-        navMenu.menu_title = update_title;
+        navMenu.menu_title = update_title.toUpperCase();
       } else {
-        navMenu.menu_title = elm.getAttribute("data-current-menu").toLowerCase();
+        navMenu.menu_title = elm.getAttribute("data-current-menu").toUpperCase();
       }
       
-      // update nav header text with current list
+      // update nav header text with current list      
       navMenu.updateNavTitle(navMenu.menu_title);
       if (move == 1){
         let num = Number(parseInt(elm.getAttribute("data-level")));
@@ -938,7 +980,14 @@ const navMenu = {
        } else {
          return false;
        }
-    } else {
+    } else if (event.target.nodeName === "I"){
+       if (event.target.parentElement && event.target.parentElement.nodeName === "A"  && !event.target.classList.contains("direct_link")){ 
+ navMenu.goToLevel(navMenu.updateMetaData(event.target.parentElement, true, 1));
+         return true;  
+         } else {
+         return false;
+       }
+       } else {
       return false;
     }
     
@@ -957,23 +1006,35 @@ const navMenu = {
         newLink.setAttribute("data-level", linkObj.level);
         newLink.setAttribute("data-levels", linkObj.levels);
         newLink.setAttribute("data-current-menu", linkObj.text);
-
+        let newIcon = null;
         newSpan.classList.add("link_text");
         newSpan.innerText = linkObj.text;
         if (linkObj.text.toLowerCase() == "back" || linkObj.levels == -1){
           newLink.addEventListener("click", linkObj.callback);
+           // show the arrow becuase this link is nested back link (Ob)
+           newIcon = document.createElement("i");
+           newIcon.classList.add("float_left", "fa", "fa-chevron-left");
+           
           // back btn
           newLink.classList.add("back_btn");
         } else if (linkObj.levels == 1){
           // open new sup child unlimated
           newLink.addEventListener("click", linkObj.callback);
           newLink.classList.add("action_link");
+          // show the arrow becuase this link is nested sub menu (Ob)
+           newIcon = document.createElement("i");
+           newIcon.classList.add("float_left", "fa", "fa-chevron-right");           
         } else {
           // click normal link add href to it (this href come from menus array make sure to add your own hrefs)          
           newLink.setAttribute("href", linkObj.href);
           newLink.classList.add("direct_link");
           
         }
+        if (newIcon != null && !newLink.classList.contains("direct_link")){
+          newLink.appendChild(newIcon);
+          newLink.classList.add("pointer");
+        }
+        
         newLink.appendChild(newSpan);
         fragment.appendChild(newLink);
       });
@@ -990,8 +1051,6 @@ const navMenu = {
      navMenu.current_menu = navMenu[data.current_menu];
      navMenu.current_level = parseInt(data.level);
      navMenu.current_levels = data.levels;
-     
-     
      event.preventDefault();
     
      navMenu.updateMetaDataSub(1);
